@@ -1,223 +1,702 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shazan - Personal Portfolio Website</title>
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css" />
-    <!-- Font awesome -->
-    <script src="https://kit.fontawesome.com/e6b8371d90.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Shazan | RPA Developer</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --bg-color: #0a192f; /* Dark Navy */
+            --card-bg: #112240; /* Lighter Navy */
+            --text-primary: #ccd6f6; /* Off White */
+            --text-secondary: #8892b0; /* Grey Blue */
+            --accent: #64ffda; /* Teal/Cyan - The "Automation" color */
+            --transition: all 0.3s ease-in-out;
+        }
+
+        /* --- RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        section {
+            padding: 80px 10%;
+        }
+
+        h1, h2, h3 {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::after {
+            content: "";
+            display: block;
+            width: 200px;
+            height: 1px;
+            background-color: var(--text-secondary);
+            margin-left: 20px;
+            opacity: 0.5;
+        }
+
+        span.highlight {
+            color: var(--accent);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background-color: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .btn-resume {
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .btn-resume:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 0;
+        }
+
+        .hero p.intro {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .hero h2.subtitle {
+            font-size: 3rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .hero p.desc {
+            max-width: 600px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-primary {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 12px 28px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about-content {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .profile-img-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            filter: grayscale(100%);
+            transition: var(--transition);
+            position: relative;
+            z-index: 2;
+            background-color: #333; /* Placeholder color */
+        }
+
+        .profile-img-container::after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .profile-img-container:hover .profile-img {
+            filter: grayscale(0%);
+        }
+
+        .profile-img-container:hover::after {
+            top: 10px;
+            left: 10px;
+        }
+
+        /* --- EXPERIENCE SECTION (Timeline) --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--text-secondary);
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 50px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: var(--bg-color);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+        }
+
+        .job-title {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+        }
+
+        .company-name {
+            color: var(--accent);
+            font-size: 1rem;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .job-date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-family: monospace;
+        }
+
+        .job-desc li {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.95rem;
+        }
+
+        .job-desc li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* --- SKILLS SECTION --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            background: rgba(100, 255, 218, 0.05);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        /* --- PROJECTS SECTION --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .folder-icon {
+            color: var(--accent);
+            font-size: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.8rem;
+            font-family: monospace;
+            color: var(--text-secondary);
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            justify-content: center;
+        }
+
+        .contact h2::after {
+            display: none;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        .contact-item i {
+            color: var(--accent);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .hero h2.subtitle { font-size: 2rem; }
+            .about-content { grid-template-columns: 1fr; }
+            .profile-img-container { margin: 0 auto 40px; }
+            nav { display: none; } /* Simplify nav for mobile or add hamburger menu */
+            section { padding: 60px 5%; }
+        }
+    </style>
 </head>
-
 <body>
-    <!-- Header section -->
-    <div id="header">
-        <div class="container">
-            <nav>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">MS.</div>
+        <div class="nav-links">
+            <a href="#about"><span class="highlight">01.</span> About</a>
+            <a href="#experience"><span class="highlight">02.</span> Experience</a>
+            <a href="#projects"><span class="highlight">03.</span> Projects</a>
+            <a href="#contact"><span class="highlight">04.</span> Contact</a>
+            <a href="#" class="btn-resume">Resume</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <p class="intro">Hi, I'm</p>
+        <h1>Mohamed Shazan.</h1>
+        <h2 class="subtitle">I build things for the web & automate workflows.</h2>
+        <p class="desc">
+            I'm an RPA Developer and Full Stack Engineer based in Sri Lanka. I specialize in building efficient, user-friendly software solutions and automating business processes using UiPath, .NET, and Python.
+        </p>
+        <div class="cta-group">
+            <a href="#contact" class="btn-primary">Get In Touch</a>
+            <a href="#projects" class="btn-primary" style="border-color: var(--text-secondary); color: var(--text-secondary);">View Work</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2><span class="highlight">01.</span> About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    Hello! I'm Mohamed, an enthusiastic RPA Assistant with a strong passion for automating business processes. I enjoy bridging the gap between complex logic and user-friendly software.
+                </p>
+                <p>
+                    My journey involves a solid foundation in object-oriented programming and workflow automation. Whether it's scripting in <strong>Python</strong>, developing in <strong>.NET</strong>, or creating bots in <strong>UiPath</strong>, I love the challenge of making systems more efficient.
+                </p>
+                <p>
+                    I hold a <strong>Bachelor of Information and Communication Technology Honours</strong> (GPA 3.3/4.0) from the University of Vavuniya.
+                </p>
                 
-                <ul id="sidemenu">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#works">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+                <!-- Skills Grid inside About -->
+                <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--text-primary);">Technical Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Languages</h3>
+                        <div class="tags">
+                            <span class="tag">C#</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">Java</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">PHP</span>
+                            <span class="tag">SQL</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>RPA & Frameworks</h3>
+                        <div class="tags">
+                            <span class="tag">UiPath</span>
+                            <span class="tag">.NET Core</span>
+                            <span class="tag">ReactJs</span>
+                            <span class="tag">NextJs</span>
+                            <span class="tag">NodeJs</span>
+                            <span class="tag">Flutter</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Tools</h3>
+                        <div class="tags">
+                            <span class="tag">Visual Studio</span>
+                            <span class="tag">VS Code</span>
+                            <span class="tag">Git/GitHub</span>
+                            <span class="tag">SQL Server</span>
+                            <span class="tag">AWS/Azure</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-img-container">
+                <!-- REPLACE 'images/profile.jpg' WITH YOUR ACTUAL IMAGE PATH -->
+                <!-- If you don't have an image yet, this placeholder will show a grey box -->
+                <img src="images/profile.jpg" alt="Mohamed Shazan" class="profile-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2><span class="highlight">02.</span> Where I've Worked</h2>
+        <div class="timeline">
+            
+            <!-- Job 1 -->
+            <div class="timeline-item">
+                <span class="timeline-dot"></span>
+                <h3 class="job-title">RPA Assistant</h3>
+                <span class="company-name">@ Legacy Health LLC</span>
+                <div class="job-date">May 2025 - Present</div>
+                <ul class="job-desc">
+                    <li>Run automation BOTs and extract data from internal, external, and RDP servers to Database.</li>
+                    <li>Analyze BOT runs and debugging in production for smooth operations.</li>
+                    <li>Developing Automation BOTs for extracting data and updating databases.</li>
+                    <li>Assisting internal AI and Software development processes.</li>
+                    <li>Managing the database and updating whenever required.</li>
+                    <li>Developing BOTs and publishing into production in orchestrator across multiple VMs.</li>
                 </ul>
-                <i class="fa-solid fa-bars" onclick="openmenu()"></i>
-            </nav>
-            <div class="header-text">
-                <p>Full Stack Developer</p>
-                <h1>
-                    Hi, I'm <span>Mohamed Shazan</span> <br />
-                    From Sri Lanka
-                </h1>
             </div>
-        </div>
-    </div>
 
-    <!-- About section -->
-    <div id="about">
-        <div class="container">
-            <div class="row">
-                <div class="about-col-1">
-                    <img src="photo.jpg" alt="developer's photo">
-                </div>
-                <div class="about-col-2">
-                    <h1 class="sub-title">About Me</h1>
-                    <p>
-                         I am a full-stack web developer proficient in both front-end and back-end development, capable of creating and maintaining entire web applications. i am expert  in various programming languages, databases, and frameworks, allowing
-                         to handle the complete development process, from designing user interfaces to managing server-side logic and databases.</p>
-                    <div class="tab-titles">
-                        <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
-                        <p class="tab-links" onclick="opentab('experience')">Experience</p>
-                        <p class="tab-links" onclick="opentab('education')">Education</p>
-                    </div>
-                    <div class="tab-contents active-tab" id="skills">
-                        <ul>
-                            <li><span>UI/UX</span><br>Designing Web/App Interfaces</li>
-                            <li><span>Web Development</span><br>Web app Development</li>
-                            <li><span>App Development</span><br>Building Desktop Applications</li>
-                        </ul>
-                    </div>
-                    <div class="tab-contents" id="experience">
-                        <ul>
-                            <li><span>2024</span><br>Intern Full Stack (MERN) Developer - DoNext</li>
-                            <li><span>2023</span><br>Chief Editor - Muslim Majlis UOV</li>
-                            <li><span>2023</span><br>Chief Designer (Assanabil Magazine Committee) - Muslim Majlis UOV</li>
-                            <li><span>2023</span><br>Marketing Team Leader - AIESEC in Jaffna</li>
-                            <li><span>2023</span><br>Marketing IGVP - AIESEC in Vavuniya</li>
-                        </ul>
-                    </div>
-                    <div class="tab-contents" id="education">
-                        <ul>
-                            <li><span>2020-Present</span><br>BICT(hons) in University of Vavuniya</li>
-                            <li><span>2021</span><br>Android Application Development - WinSys Networks</li>
-                        </ul>
-                    </div>
-                </div>
+            <!-- Job 2 -->
+            <div class="timeline-item">
+                <span class="timeline-dot"></span>
+                <h3 class="job-title">Intern Software Engineer</h3>
+                <span class="company-name">@ Donext (pvt) Ltd</span>
+                <div class="job-date">Feb 2024 - Sep 2024</div>
+                <ul class="job-desc">
+                    <li>Worked as a full-stack developer across several big projects (MyUniverse, Bloosnoo, EUME).</li>
+                    <li>Resolved front-end issues and implemented state management (Redux).</li>
+                    <li>Worked in NestJS for the backend; implemented complex business logic and Google OAuth.</li>
+                    <li>Implemented AWS S2 bucket storage for images.</li>
+                    <li>Developed EUME application features including English to Spanish translation.</li>
+                </ul>
             </div>
-        </div>
-    </div>
 
-    <!-- Services section -->
-    <div id="services">
-        <div class="container">
-            <h1 class="sub-title">My Services</h1>
-            <div class="services-list">
-                <div>
-                    <i class="fa-solid fa-code"></i>
-                    <h2>Web Development</h2>
-                    <p>designs and creates websites, utilizing programming languages like HTML, CSS, and JavaScript, ASP .net, ReactJs to craft engaging and functional user interfaces.
-                        It play a crucial role in building and maintaining the online presence of businesses and organizations.</p>
-                    <a href="#">Learn more</a>
-                </div>
-                <div>
-                    <i class="fa-solid fa-pen-nib"></i>
-                    <h2>UI/UX Design</h2>
-                    <p>UI/UX design focuses on creating an intuitive and visually appealing user interface (UI) while ensuring a 
-                        seamless and satisfying user experience (UX). It involves a combination of thoughtful layout, interactive elements, 
-                        and user-centered design principles to enhance the overall usability and satisfaction of digital products and websites.
+            <!-- Job 3 -->
+            <div class="timeline-item">
+                <span class="timeline-dot"></span>
+                <h3 class="job-title">Freelance Software Developer</h3>
+                <span class="company-name">@ Self-Employed</span>
+                <div class="job-date">Sep 2023 - Present</div>
+                <ul class="job-desc">
+                    <li>Developing websites, AI and ML systems, and custom applications for clients.</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2><span class="highlight">03.</span> Notable Projects</h2>
+        <div class="projects-grid">
+            
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="top">
+                    <div class="project-header">
+                        <i class="far fa-folder folder-icon"></i>
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Real-Time Chainsaw Sound Classification</h3>
+                    <p class="project-desc">
+                        An IoT and Deep Learning solution for forest conservation. Detects illegal deforestation using a CNN model to classify chainsaw sounds from environmental audio.
                     </p>
-                    <a href="#">Learn more</a>
                 </div>
-                <div>
-                    <i class="fa-brands fa-app-store-ios"></i>
-                    <h2>App Development</h2>
-                    <p>App development involves the process of designing, building, and deploying software
-                         applications for Desktop devices or other platforms. It encompasses various stages, 
-                         including conceptualization, coding, testing, and deployment, with the goal of creating functional and user-friendly applications that meet specific needs or solve particular problems.</p>
-                    <a href="#">Learn more</a>
+                <div class="project-tech">
+                    <span>Python</span>
+                    <span>CNN</span>
+                    <span>IoT</span>
+                    <span>Flask</span>
+                    <span>React</span>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Works section -->
-    <div id="works">
-        <div class="container">
-            <h1 class="sub-title">My Works</h1>
-            <div class="works-list">
-                <div class="work">
-                    <img src="Medical.png" alt="work-1">
-                    <div class="layer">
-                        <h3>Medical Center ERP System</h3>
-                        <p>A desktop based system which is using for manage patients and entire medical department data. It has centralized
-                            database which allowes multiple users (3 users - Doctor, Receptionist, Pharmacist) which it's providing seamless flow
-                            between users and dataflows among each users.
-                        </p>
-                        <a href="https://github.com/shzn-mhd/Medical-center-management-system.git"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="top">
+                    <div class="project-header">
+                        <i class="far fa-folder folder-icon"></i>
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
                     </div>
+                    <h3 class="project-title">Medical Centre Management System</h3>
+                    <p class="project-desc">
+                        A comprehensive system for university medical centers. Features patient registration, appointment scheduling, and secure medical record management.
+                    </p>
                 </div>
-                <div class="work">
-                    <img src="EasyBooking.png" alt="work-2">
-                    <div class="layer">
-                        <h3>Online Bus Booking System </h3>
-                        <p>Web application shich hosted on a server allows access to the customers of the company to book 
-                            manage their bus tickets and track their jounery
-                            which allows users to book their seats according to their preferences and online payment method also 
-                            generate ticket ontime and downloads it into customer's device</p>
-                        <a href="https://github.com/shzn-mhd/Online-bus-ticket-booking-system.git"><i class="fa fa-external-link" aria-hidden="true"></i></a>
-                    </div>
-                </div>
-                <div class="work">
-                    <img src="SelfCheckout.png" alt="work-3">
-                    <div class="layer">
-                        <h3>Self Checkout POS System</h3>
-                        <p>An application which developed using MERN technology. which allows users to pay their bills by themselves.
-                            it's efficient and each and every user can handle their user account in shop and which allows them to track their bills and
-                            their payments. Cashier's invlovement is not required!
-                        </p>
-                        <a href="https://github.com/shzn-mhd/Self-checkout-ERP-system.git"><i class="fa fa-external-link" aria-hidden="true"></i></a>
-                    </div>
+                <div class="project-tech">
+                    <span>C#</span>
+                    <span>.NET Framework</span>
+                    <span>MySQL</span>
                 </div>
             </div>
-            <a href="#" class="btn">See more</a>
-        </div>
-    </div>
 
-    <!-- Contact section -->
-    <div id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="contact-left">
-                    <h1 class="sub-title">Contact Me</h1>
-                    <p><i class="fa-solid fa-paper-plane"></i>mohamadshazan221@gmail.com</p>
-                    <p><i class="fa-solid fa-square-phone-flip"></i>+94779914186</p>
-                    <div class="social-icons">
-                        <a href="https://www.facebook.com/mhmd.shazan"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://github.com/shzn-mhd"><i class="fa-brands fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/mohamed-shazan-5a570616a/"><i class="fa-brands fa-linkedin"></i></a>
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="top">
+                    <div class="project-header">
+                        <i class="far fa-folder folder-icon"></i>
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
                     </div>
-                    <a href="Mohamed_Shazan_CV.pdf" class="btn btn2" download>Download CV</a>
+                    <h3 class="project-title">MyUniverse & EUME</h3>
+                    <p class="project-desc">
+                        Full-stack development for a complex application ecosystem. Handled Redux state management, AWS S3 integration, and Google OAuth functionality.
+                    </p>
                 </div>
-                <div class="contact-right">
-                    <form action="">
-                        <input type="text" name="Name" placeholder="Your Name" required>
-                        <input type="email" name="Email" placeholder="Your Email" required>
-                        <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
-                        <button type="submit" class="btn btn2">Submit</button>
-                    </form>
+                <div class="project-tech">
+                    <span>React</span>
+                    <span>NestJS</span>
+                    <span>AWS</span>
+                    <span>Redux</span>
                 </div>
             </div>
+
         </div>
-    </div>
+    </section>
 
-    <script>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <p class="intro" style="color: var(--accent);">04. What's Next?</p>
+        <h2>Get In Touch</h2>
+        <p class="desc">
+            I am currently looking for new opportunities as an RPA Developer. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+        </p>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>mohamadshazan221@gmail.com</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <span>+94 77 99 14 186</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Dehiwala, Sri Lanka</span>
+            </div>
+        </div>
 
-        var tablinks = document.getElementsByClassName("tab-links");
-        var tabcontents = document.getElementsByClassName("tab-contents");
+        <br><br>
+        <a href="mailto:mohamadshazan221@gmail.com" class="btn-primary">Say Hello</a>
+    </section>
 
-        function opentab(tabname) {
-            for (tablink of tablinks) {
-                tablink.classList.remove("active-link");
-            }
-            for (tabcontent of tabcontents) {
-                tabcontent.classList.remove("active-tab");
-            }
-            event.currentTarget.classList.add("active-link");
-            document.getElementById(tabname).classList.add("active-tab");
-        }
-
-    </script>
-
-    <script>
-
-        var sidemeu = document.getElementById("sidemenu");
-
-        function openmenu(){
-            sidemeu.style.right = "0";
-        }
-
-        function closemenu(){
-            sidemeu.style.right = "-200px";
-        }
-
-    </script>
+    <!-- Footer -->
+    <footer>
+        <p>Designed & Built by Mohamed Shazan</p>
+        <div style="margin-top: 10px; font-size: 1.2rem;">
+            <a href="#" style="margin: 0 10px;"><i class="fab fa-linkedin"></i></a>
+            <a href="#" style="margin: 0 10px;"><i class="fab fa-github"></i></a>
+        </div>
+    </footer>
 
 </body>
-
 </html>
